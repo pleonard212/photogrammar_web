@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Photogrammar Map</title>
+
+ <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+<!--[if lte IE 8]>
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
+<![endif]-->
+<script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+ <style>
+ #map { 
+ 	height: 500px;
+  }
+ </style>
+</head>
+<body>
+ <div id="map"></div>
+ <script>
+var map = L.map('map').setView([39.8, -98.2], 5);
+mapboxUrl = 'http://{s}.tiles.mapbox.com/v3/mapbox.world-light/{z}/{x}/{y}.png';     
+mapbox = new L.TileLayer(mapboxUrl, {maxZoom: 18, attribution: "", detectRetina:true});
+map.addLayer(mapbox,true);    
+
+cartodb.createLayer(map, {
+  user_name: 'photogrammar',
+  type: 'cartodb',
+  sublayers: [{
+    sql: "SELECT uscounties.cartodb_id,uscounties.name,uscounties.state_name,ST_SIMPLIFY(uscounties.the_geom_webmercator,0.0001) as the_geom_webmercator,ST_ASGEOJSON(ST_SIMPLIFY(uscounties.the_geom,0.0001)) as geometry,COUNT(*) as npics  FROM uscounties,fsadata WHERE uscounties.fips = fsadata.fips GROUP BY uscounties.cartodb_id;",
+    cartocss: '#uscounties {line-color:#3b3b3b;line-opacity:1;line-width:1;polygon-opacity:0.8;}'
+  }]
+}).addTo(map) 
+
+        
+ </script>
+</body>
+</html>
