@@ -16,18 +16,10 @@ html, body, #map {
 body {
 	padding-top: 100px;
 }
-/*
-.cartodb-popup-content {
-margin-top: 5px;
-margin-bottom: 5px;
-margin-left: 5px;
-margin-right: 5px;
-}
-.cartodb-popup-content-wrapper {
-border-radius: 5px;
+/* FIX for cosmetic bug in interaction between bootstrap and cartodb.js/Leaflet in popup box (broken right border) */
 
-}
-*/
+div.cartodb-popup div.cartodb-popup-content-wrapper { padding-right:210px;}
+  
 
 </style>
 
