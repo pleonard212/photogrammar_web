@@ -3,12 +3,11 @@
 
         <style>
 
-  	    #chart {
-			width: 1100px;
-		    padding-top:150px;
-			background: #bbb;
-			margin: 1px auto;
-			position: relative;
+
+	
+	#chart {
+
+	
 			-webkit-box-sizing: border-box;
 				-moz-box-sizing: border-box;
 					box-sizing: border-box;
@@ -22,14 +21,11 @@
 
 		.grandparent text { /* header text */
 			font-weight: bold;
-			font-size: medium;
-			
+			font-size: large;			
 			font-family:  Helvetica, Arial, sans-serif; 
 		}
 
 		rect {
-			
-			
 			stroke: #fff;
 		}
 
@@ -40,6 +36,7 @@
 
 		.grandparent rect {
 			fill: #fff;
+			
 		}
 
 		.children rect.parent,
@@ -57,8 +54,7 @@
 			fill: #aaa;
 		}
 
-		.textdiv { /* text in the boxes */
-			
+		.textdiv { /* text in the boxes */			
 			padding: 5px;
 		
 			font-weight: bold;
@@ -66,29 +62,24 @@
 			cursor: pointer;
 		
 			background-size: 50%; 
-			height:900px;
+			
 
 		}
 
 	</style>
+<div class="container" style="padding-top:50px">
+<h2>Treemap Visualization of 1942 Classification System</h2>
+<div id="chart" >
 
-<div id="chart" style="padding-top:85px" class="clearfix">
-
-<script src="http://d3js.org/d3.v2.js"></script>
+<script src="http://d3js.org/d3.v2.min.js" charset="utf-8"></script>
 <script src="http://code.jquery.com/jquery-1.7.1.js"></script>
 <script>
 	
-	/* 
-	* If running inside bl.ocks.org we want to resize the iframe to fit both graphs
-	* This bit of code was shared originally at https://gist.github.com/benjchristensen/2657838
-	*/
-	 if(parent.document.getElementsByTagName("iframe")[0]) {
-			 parent.document.getElementsByTagName("iframe")[0].setAttribute('style', 'height: 700px !important');
-		 }
+
 
 	var margin = {top: 20, right: 0, bottom: 0, left: 0},
-	width = 1100,
-	height = 600 - margin.top - margin.bottom,
+	width = (window.innerWidth -150),
+	height = (window.innerHeight - 140),
 	formatNumber = d3.format(",d"),
 	transitioning;
 
@@ -109,8 +100,8 @@
 
 	/* create svg */
 	var svg = d3.select("#chart").append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.bottom + margin.top)
+		.attr("width", width)
+		.attr("height", height)
 		.style("margin-left", -margin.left + "px")
 		.style("margin.right", -margin.right + "px")
 		.append("g")
@@ -123,9 +114,11 @@
 		.attr("class", "grandparent");
 
 	grandparent.append("rect")
+		.attr("stroke-width",1)
+		.attr("stroke","black")
 		.attr("y", -margin.top)
 		.attr("width", width)
-		.attr("height", 20);
+		.attr("height", 25);
 		
 	grandparent.append("text")
 		.attr("x", 6)
@@ -302,8 +295,8 @@
 			.attr("y", function(d) { return y(d.y); })
 			.attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
 			.attr("height", function(d) { return y(d.y + d.dy) - y(d.y); })
-
-			.style("background-color", function(d) { return d.parent ? color(d.name) : null; })
+/* 			.attr("fill","white") */
+			.attr("fill", function(d) { return d.parent ? color(d.name) : null; })
 
 			
 		}
@@ -324,12 +317,9 @@
 
 </script>
 
+</div>
 
-      <hr>
 
-      <footer>
-        <p>&copy;</p>
-      </footer>
     </div> <!-- /container -->
 
 
