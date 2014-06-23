@@ -5,7 +5,7 @@ import re
 import MySQLdb
 conn = MySQLdb.connect(host = "[HOSTNAME]", user = "[USER]", passwd = "[PASS]", db = "[DATABASE]")
 cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS similarity (`simid` INT( 6 ) NOT NULL AUTO_INCREMENT, `thisphoto` VARCHAR( 13 ) NOT NULL, `similarphoto` INT( 13 ) NOT NULL, `howsimilar` FLOAT NOT NULL, PRIMARY KEY (  `simid` )) ENGINE = MYISAM DEFAULT CHARSET = utf8;")
+cursor.execute("CREATE TABLE IF NOT EXISTS similarity (`simid` INT( 6 ) NOT NULL AUTO_INCREMENT, `thisphoto` VARCHAR( 13 ) NOT NULL, `similarphoto` VARCHAR( 13 ) NOT NULL, `howsimilar` FLOAT NOT NULL, PRIMARY KEY (  `simid` )) ENGINE = MYISAM DEFAULT CHARSET = utf8;")
 cursor.execute("TRUNCATE TABLE similarity;")
 
 def replace_all(text, dic):
@@ -28,11 +28,11 @@ for line in docindexfile.readlines()[3:-1]:
 	docindex.append( y )
 
 docindexfile.close()
-print docindex
+# print docindex
 
 
 probfile = open(sys.argv[1])
-lines = probfile.readlines()
+lines = probfile.readlines()[3:-1]
 for line in lines[1:]:
 	line = line.strip()
 	line = line.replace('{', '')
@@ -45,20 +45,20 @@ for line in lines[1:]:
 	parts = line.split(' ')
 
 
-	thisdoc =  parts[0]
-	thisdoc = replace_all(thisdoc, docindex)
+	thisphoto =  parts[0]
+	thisphoto = replace_all(thisphoto, docindex)
 	probtuples = []
 	probtuple = ()
 	for part in parts[1:]:
-		if len(probtuple) < 2:
+		if len(probtuple) < 5:
 			probtuple += (part,)
-		if len(probtuple) == 2:
+		if len(probtuple) == 5:
                 	probtuples.append(probtuple)
                 	probtuple = ()
 	for probtuple in probtuples:
-        	similardoc = int(replace_all(probtuple[0], docindex)) 
+        	similarphoto = (replace_all(probtuple[0], docindex)) 
         	howsimilar = probtuple[1]
                 if ((float(howsimilar) > 0.0001) & (float(howsimilar) < 0.9)) :
-			sqlargument = "insert into similarity (thisdoc, similardoc, howsimilar) values (%s, %s, %s)"
-                    	cursor.execute(sqlargument, (thisdoc, similardoc, howsimilar))
-                    	print (sqlargument, (thisdoc, similardoc, howsimilar))
+			sqlargument = "insert into similarity (thisphoto, similarphoto, howsimilar) values (%s, %s, %s)"
+                    	cursor.execute(sqlargument, (thisphoto, similarphoto, howsimilar))
+                    	print (sqlargument, (thisphoto, similarphoto, howsimilar))
