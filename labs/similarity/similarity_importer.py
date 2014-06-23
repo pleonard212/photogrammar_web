@@ -5,7 +5,7 @@ import re
 import MySQLdb
 conn = MySQLdb.connect(host = "[HOSTNAME]", user = "[USER]", passwd = "[PASS]", db = "[DATABASE]")
 cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS similarity (`simid` INT( 6 ) NOT NULL AUTO_INCREMENT, `thisphoto` VARCHAR( 13 ) NOT NULL, `similarphoto` INT( 13 ) NOT NULL, `howsimilar` FLOAT NOT NULL, PRIMARY KEY (  `simid` )) ENGINE = MYISAM DEFAULT CHARSET = latin1;")
+cursor.execute("CREATE TABLE IF NOT EXISTS similarity (`simid` INT( 6 ) NOT NULL AUTO_INCREMENT, `thisphoto` VARCHAR( 13 ) NOT NULL, `similarphoto` INT( 13 ) NOT NULL, `howsimilar` FLOAT NOT NULL, PRIMARY KEY (  `simid` )) ENGINE = MYISAM DEFAULT CHARSET = utf8;")
 cursor.execute("TRUNCATE TABLE similarity;")
 
 def replace_all(text, dic):
