@@ -22,8 +22,6 @@ with open('query_result.csv', 'rb') as csvfile:
 			bonusstoplist.extend(['Ct', 'Conn'])
 		if (row[3] == "Delaware"):
 			bonusstoplist.extend(['De', 'Del'])
-		if (row[3] == "Louisiana"):
-			bonusstoplist.extend(['Parish','La'])
 		if (row[3] == "District of Columbia"):
 			bonusstoplist.extend(['DC', 'Washington', 'D', 'C'])
 		if (row[3] == "Florida"):
@@ -43,7 +41,7 @@ with open('query_result.csv', 'rb') as csvfile:
 		if (row[3] == "Kentucky"):
 			bonusstoplist.extend(['Ky'])
 		if (row[3] == "Louisiana"):
-			bonusstoplist.extend(['La'])
+			bonusstoplist.extend(['Parish','La'])			
 		if (row[3] == "Maine"):
 			bonusstoplist.extend(['Me'])
 		if (row[3] == "Maryland"):
@@ -90,7 +88,7 @@ with open('query_result.csv', 'rb') as csvfile:
 			bonusstoplist.extend(['S', 'C', 'SC'])
 		if (row[3] == "Tennessee"):
 			bonusstoplist.extend(['Te','Tenn','TN'])
-		if (row[3] == "Exas"):
+		if (row[3] == "Texas"):
 			bonusstoplist.extend(['Texas'])
 		if (row[3] == "Utah"):
 			bonusstoplist.extend(['Ut'])
